@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello Vue</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <!-- vue will manage all the HTML here -->
+    <h1>Hello Vue!</h1>
+
+    {{ messageWithExclamationPoints }}
+
+    <br>
+
+    <button v-on:click="addExclamationPoints">Add exclamation points</button>
+    <button v-on:click="clearExclamationPoints">Clear exclamation points</button>
+</div>
+
+<script>
+    // set up the view app
+
+    const { createApp, ref, computed } = Vue;
+
+    createApp({
+        setup() {
+            // define things our view app needs here
+
+            // the message that we will add exclamation marks to
+            const message = ref('Hi');
+            // the number of exclamation marks to put after our message
+            const numberOfExclamationPoints = ref(0);
+
+            // adds to the number of exclamation points if the value is less than 10
+            function addExclamationPoints() {
+                if (numberOfExclamationPoints.value < 10) {
+                    numberOfExclamationPoints.value ++;
+                }else {
+                    alert('No more exclamation points')
+                }
+            }
+
+            // resets the number of exclamation points to 0
+            function clearExclamationPoints() {
+                numberOfExclamationPoints.value = 0;
+            }
+
+            // returns the message plus the number of exclamation marks according to numberOfExclamationPoints
+            const messageWithExclamationPoints = computed(function() {
+                let computedMessage = message.value;
+                // add ! based on numberOfExclamationPoints
+                for (let x = 0; x < numberOfExclamationPoints.value; x++) {
+                    computedMessage = computedMessage + '!';
+                }
+                return computedMessage;
+            })
+
+            // make sure to return everything here that you wish to use in the vue managed div
+            return {
+                message,
+                numberOfExclamationPoints,
+                messageWithExclamationPoints,
+                addExclamationPoints,
+                clearExclamationPoints
+            }
+        }
+    }).mount('#app');
+</script>
+</body>
+</html>

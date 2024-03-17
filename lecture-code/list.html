@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello Vue Task List</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+</head>
+<body>
+
+<div id="app">
+    <h1>Task Lists</h1>
+
+    <h2>Enter new task</h2>
+    <label>Please enter your to-do task</label>
+    <!-- the v model attribute adds a 2 way link between the view and the model -->
+    <input v-model="newTask">
+    <br>
+    <button v-on:click="addTask">Add Task</button>
+    <h2>Task list</h2>
+    <ul>
+        <!-- This will create a new li element for every element in taskList -->
+        <li v-for="task in taskList">
+            {{ task }}
+        </li>
+    </ul>
+</div>
+
+<script>
+    const {createApp, ref} = Vue;
+
+    createApp({
+        setup() {
+
+            const taskList = ref(['Water plants', 'Pay cellphone bill', 'Wash floor']);
+            const newTask = ref('');
+
+            function addTask() {
+                // add the newTask to the task list
+                if (newTask.value) {
+                    taskList.value.push(newTask.value);
+                    newTask.value = '';
+                }
+            }
+
+            return {
+                taskList,
+                newTask,
+                addTask
+            }
+        }
+    }).mount('#app');
+</script>
+
+</body>
+</html>
