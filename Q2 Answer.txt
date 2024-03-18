@@ -1,0 +1,1 @@
+QUESTION 2 ANSWER: The vue warning message means that we tried to use a property in the root div of our vue application that we did not return in the setup function. The setup function is a property of the object we pass into the createApp function. In order to fix this warning message we need to make sure that we return the property we are trying to access in the setup function.
